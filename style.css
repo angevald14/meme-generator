@@ -1,0 +1,33 @@
+body{
+    text-align:center;
+    background:#f0f0f0;
+    font-family:Arial;
+}
+
+.meme-container{
+    position:relative;
+    width:500px;
+    margin:auto;
+}
+
+#memeImage{
+    width:100%;
+}
+
+#textTop{
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+    font-size:30px;
+}
+
+#textBottom{
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+    font-size:30px;
+}

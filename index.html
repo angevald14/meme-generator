@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Generateur de Memes</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- bibliothèque pour capture -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Generateur de Memes</h1>
+
+    <input type="file" id="imageInput" />
+
+    <br><br>
+
+    <input type="text" id="topText" placeholder="Texte du haut" />
+
+    <br><br>
+
+    <input type="text" id="bottomText" placeholder="Texte du bas" />
+
+    <br><br>
+
+    <button id="downloadBtn">Télécharger</button>
+    <button id="shareBtn">Partager</button>
+
+    <br><br>
+
+    <div class="meme-container">
+
+        <img id="memeImage" alt="Meme" />
+
+        <h2 id="textTop"></h2>
+        <h2 id="textBottom"></h2>
+
+    </div>
+
+    <!-- galerie -->
+    <h2>Galerie</h2>
+    <div id="gallery"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
