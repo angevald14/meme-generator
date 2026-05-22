@@ -3,7 +3,6 @@
 // =====================
 
 const imageInput = document.getElementById("imageInput");
-
 const memeImage = document.getElementById("memeImage");
 
 const topText = document.getElementById("topText");
@@ -17,7 +16,9 @@ imageInput.addEventListener("change", function () {
 
     const file = imageInput.files[0];
 
-    memeImage.src = URL.createObjectURL(file);
+    if (file) {
+        memeImage.src = URL.createObjectURL(file);
+    }
 
 });
 
@@ -46,14 +47,24 @@ function saveMeme(imageURL) {
 }
 
 
-// charger galerie
+// =====================
+// CHARGER GALERIE
+// =====================
+
 function loadGallery() {
 
     let gallery = document.getElementById("gallery");
 
+    if (!gallery) return;
+
     let memes = JSON.parse(localStorage.getItem("memes")) || [];
 
     gallery.innerHTML = "";
+
+    if (memes.length === 0) {
+        gallery.innerHTML = "<p>Aucun mème encore 😅</p>";
+        return;
+    }
 
     memes.forEach(function (img) {
 
@@ -63,6 +74,8 @@ function loadGallery() {
 
         image.style.width = "120px";
         image.style.margin = "5px";
+        image.style.borderRadius = "10px";
+        image.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
 
         gallery.appendChild(image);
 
@@ -76,57 +89,79 @@ function loadGallery() {
 
 const downloadBtn = document.getElementById("downloadBtn");
 
-downloadBtn.addEventListener("click", function () {
+if (downloadBtn) {
 
-    html2canvas(document.querySelector(".meme-container"))
-    .then(canvas => {
+    downloadBtn.addEventListener("click", function () {
 
-        const imageURL = canvas.toDataURL("image/png");
+        html2canvas(document.querySelector(".meme-container"))
+        .then(canvas => {
 
-        const link = document.createElement("a");
-        link.download = "meme.png";
-        link.href = imageURL;
-        link.click();
+            const imageURL = canvas.toDataURL("image/png");
 
-        // sauvegarde galerie
-        saveMeme(imageURL);
+            const link = document.createElement("a");
+            link.download = "meme.png";
+            link.href = imageURL;
+            link.click();
 
-        loadGallery();
+            // sauvegarde galerie
+            saveMeme(imageURL);
+
+            loadGallery();
+
+        });
 
     });
 
-});
+}
 
 
 // =====================
-// PARTAGE
+// PARTAGE (Snap / Insta / FB via mobile)
 // =====================
 
 const shareBtn = document.getElementById("shareBtn");
 
-shareBtn.addEventListener("click", async function () {
+if (shareBtn) {
 
-    const canvas = await html2canvas(document.querySelector(".meme-container"));
+    shareBtn.addEventListener("click", async function () {
 
-    canvas.toBlob(async function (blob) {
+        const canvas = await html2canvas(document.querySelector(".meme-container"));
 
-        const file = new File([blob], "meme.png", { type: "image/png" });
+        canvas.toBlob(async function (blob) {
 
-        if (navigator.share) {
+            const file = new File([blob], "meme.png", { type: "image/png" });
 
-            navigator.share({
-                title: "Mon meme",
-                text: "Regarde mon meme 😂",
-                files: [file]
-            });
+            const url = URL.createObjectURL(file);
 
-        } else {
-            alert("Partage non supporté sur cet appareil");
-        }
+            // PARTAGE MOBILE (Snap, Insta, WhatsApp, Facebook si support)
+            if (navigator.share) {
+
+                try {
+                    await navigator.share({
+                        title: "Mon mème 😂",
+                        text: "Regarde mon mème",
+                        files: [file]
+                    });
+                } catch (err) {
+                    console.log("Partage annulé");
+                }
+
+            } else {
+
+                // fallback
+                alert("Télécharge le mème puis partage-le sur Snapchat, Instagram ou Facebook");
+
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "meme.png";
+                link.click();
+            }
+
+        });
 
     });
 
-});
+}
 
 
 // =====================
