@@ -62,7 +62,7 @@ function loadGallery() {
     gallery.innerHTML = "";
 
     if (memes.length === 0) {
-        gallery.innerHTML = "<p>Aucun mème encore 😅</p>";
+        gallery.innerHTML = "<p>Aucun mème encore </p>";
         return;
     }
 
@@ -80,24 +80,6 @@ function loadGallery() {
         gallery.appendChild(image);
 
     });
-}
-
-
-// =====================
-// SNAPCHAT ALERT
-// =====================
-
-function snapAlert() {
-    alert("📸 Snapchat :\n\nTon mème a été téléchargé !\n\n👉 Ouvre Snapchat\n👉 Story ou Chat\n👉 Ajoute l’image depuis ta galerie");
-}
-
-
-// =====================
-// TIKTOK ALERT
-// =====================
-
-function tiktokAlert() {
-    alert("🎵 TikTok :\n\nTon mème a été téléchargé !\n\n👉 Va dans ta galerie\n👉 Utilise l’image\n👉 Ajoute-la en commentaire ou vidéo");
 }
 
 
@@ -123,11 +105,8 @@ if (downloadBtn) {
 
             // sauvegarde galerie
             saveMeme(imageURL);
-            loadGallery();
 
-            // 🔥 ALERTES AJOUTÉES ICI
-            snapAlert();
-            tiktokAlert();
+            loadGallery();
 
         });
 
@@ -154,6 +133,7 @@ if (shareBtn) {
 
             const url = URL.createObjectURL(file);
 
+            // PARTAGE MOBILE (Snap, Insta, WhatsApp, Facebook si support)
             if (navigator.share) {
 
                 try {
@@ -168,7 +148,8 @@ if (shareBtn) {
 
             } else {
 
-                alert("Télécharge le mème puis partage-le sur Snapchat, TikTok, Instagram ou Facebook");
+                // fallback
+                alert("Télécharge le mème puis partage-le sur Snapchat, tik tok ,Instagram ou Facebook");
 
                 const link = document.createElement("a");
                 link.href = url;
