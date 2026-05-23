@@ -11,7 +11,6 @@ const bottomText = document.getElementById("bottomText");
 const textTop = document.getElementById("textTop");
 const textBottom = document.getElementById("textBottom");
 
-
 // image upload
 imageInput.addEventListener("change", function () {
 
@@ -20,7 +19,6 @@ imageInput.addEventListener("change", function () {
     if (file) {
         memeImage.src = URL.createObjectURL(file);
     }
-
 
 });
 
@@ -86,6 +84,24 @@ function loadGallery() {
 
 
 // =====================
+// SNAPCHAT ALERT
+// =====================
+
+function snapAlert() {
+    alert("Snapchat :\n\nTon mème a été téléchargé !\n\n  Ouvre Snapchat\n Story ou Chat\n Ajoute l’image depuis ta galerie");
+}
+
+
+// =====================
+// TIKTOK ALERT
+// =====================
+
+function tiktokAlert() {
+    alert("TikTok :\n\nTon mème a été téléchargé !\n\n Va dans ta galerie\n Utilise l’image\n Ajoute-la en commentaire ");
+}
+
+
+// =====================
 // TELECHARGEMENT
 // =====================
 
@@ -107,8 +123,11 @@ if (downloadBtn) {
 
             // sauvegarde galerie
             saveMeme(imageURL);
-
             loadGallery();
+
+            // ALERTES AJOUTÉES ICI
+            snapAlert();
+            tiktokAlert();
 
         });
 
@@ -135,7 +154,6 @@ if (shareBtn) {
 
             const url = URL.createObjectURL(file);
 
-            // PARTAGE MOBILE (Snap, Insta, WhatsApp, Facebook si support)
             if (navigator.share) {
 
                 try {
@@ -150,8 +168,7 @@ if (shareBtn) {
 
             } else {
 
-                // fallback
-                alert("Télécharge le mème puis partage-le sur Snapchat, tik tok ,Instagram ou Facebook");
+                alert("Télécharge le mème puis partage-le sur Snapchat, TikTok, Instagram ou Facebook");
 
                 const link = document.createElement("a");
                 link.href = url;
@@ -171,3 +188,4 @@ if (shareBtn) {
 // =====================
 
 loadGallery();
+
