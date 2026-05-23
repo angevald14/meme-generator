@@ -11,6 +11,9 @@ const bottomText = document.getElementById("bottomText");
 const textTop = document.getElementById("textTop");
 const textBottom = document.getElementById("textBottom");
 
+
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+
 // image upload
 imageInput.addEventListener("change", function () {
 
