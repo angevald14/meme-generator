@@ -12,8 +12,6 @@ const textTop = document.getElementById("textTop");
 const textBottom = document.getElementById("textBottom");
 
 
-const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-
 // image upload
 imageInput.addEventListener("change", function () {
 
@@ -22,6 +20,7 @@ imageInput.addEventListener("change", function () {
     if (file) {
         memeImage.src = URL.createObjectURL(file);
     }
+
 
 });
 
