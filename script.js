@@ -83,22 +83,6 @@ function loadGallery() {
 }
 
 
-// =====================
-// SNAPCHAT ALERT
-// =====================
-
-function snapAlert() {
-    alert("Snapchat :\n\nTon mème a été téléchargé !\n\n  Ouvre Snapchat\n Story ou Chat\n Ajoute l’image depuis ta galerie");
-}
-
-
-// =====================
-// TIKTOK ALERT
-// =====================
-
-function tiktokAlert() {
-    alert("TikTok :\n\nTon mème a été téléchargé !\n\n Va dans ta galerie\n Utilise l’image\n Ajoute-la en commentaire ");
-}
 
 
 // =====================
@@ -116,25 +100,40 @@ if (downloadBtn) {
 
             const imageURL = canvas.toDataURL("image/png");
 
-            const link = document.createElement("a");
-            link.download = "meme.png";
-            link.href = imageURL;
-            link.click();
-
             // sauvegarde galerie
             saveMeme(imageURL);
             loadGallery();
 
-            // ALERTES AJOUTÉES ICI
-            snapAlert();
-            tiktokAlert();
+            // ALERTES AVANT téléchargement
+            alert(
+            ` Snapchat :
+            Le mème va être téléchargé.
+
+            Ouvre Snapchat
+            Va dans Story ou Chat
+            Ajoute l’image depuis ta galerie
+
+             TikTok :
+             Utilise l’image en commentaire ou publication`
+                );
+
+            // téléchargement
+            const link = document.createElement("a");
+
+            link.download = "meme.png";
+            link.href = imageURL;
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
 
         });
 
     });
 
 }
-
 
 // =====================
 // PARTAGE (Snap / Insta / FB via mobile)
